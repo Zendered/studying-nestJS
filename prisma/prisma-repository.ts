@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from '@prisma/client';
-import { UpdateOrderDto } from './dto/update-order.dto';
-import { PrismaService } from './prisma.service';
+import {
+  CreateOrderDto,
+  UpdateOrderDto,
+} from '../src/domain/contracts/gateways';
+import { PrismaService } from '../src/domain/usecases/prisma.service';
 
 @Injectable()
 export class OrdersService {
   constructor(private prisma: PrismaService) {}
+
   async create(createOrderDto: CreateOrderDto): Promise<Order | null> {
     return await this.prisma.order.create({
       data: {
